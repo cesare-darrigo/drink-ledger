@@ -4,6 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10131b">
+<meta name="description" content="Diario personale di bevute e spese alcoliche.">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Drink Ledger">
+<link rel="manifest" href="./manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
 <title>Drink Ledger</title>
 <style>
 :root{--bg:#10131b;--panel:#191e29;--panel2:#202737;--text:#f3f5f8;--muted:#9ba6b7;--accent:#e5ad55;--green:#70c7a0;--red:#e27b7b;--line:#30394a}
@@ -203,5 +211,13 @@ function exportData(){
  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='drink-ledger-backup.json';a.click();URL.revokeObjectURL(a.href);
 }
 render();
+
+// Registra il service worker per installazione PWA e uso offline.
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js')
+      .catch(err => console.warn('Service worker non registrato:', err));
+  });
+}
 </script>
 </body></html>
